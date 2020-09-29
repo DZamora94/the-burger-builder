@@ -21,16 +21,16 @@ const burgerIngredient: React.FunctionComponent<BurgerIngredientProps> = (props)
       );
       break;
     case "meat":
-      <div className={styles.Meat}></div>;
+      ingredient = <div className={styles.Meat}></div>;
       break;
     case "cheese":
-      <div className={styles.Cheese}></div>;
+      ingredient = <div className={styles.Cheese}></div>;
       break;
     case "bacon":
-      <div className={styles.Bacon}></div>;
+      ingredient = <div className={styles.Bacon}></div>;
       break;
     case "salad":
-      <div className={styles.Salad}></div>;
+      ingredient = <div className={styles.Salad}></div>;
       break;
     default:
       ingredient = null;
