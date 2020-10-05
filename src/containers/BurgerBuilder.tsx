@@ -19,26 +19,33 @@ class BurgerBuilder extends React.Component {
       meat: 0,
     },
     totalPrice: 2.5,
+    purchasable: false,
+  };
+
+  private updatePurchaseState = (ingredients: { [key: string]: number }) => {
+    const ingSum: number = Object.values(ingredients).reduce(
+      (sum, val) => sum + val,
+      0
+    );
+    this.setState({ purchasable: ingSum > 0 });
   };
 
   private addIngredientHandler = (type: string) => {
     const ingredients: { [key: string]: number } = this.state.ingredients;
-    const oldCount: number = ingredients[type];
-    const newCount: number = oldCount + 1;
+    const newCount: number = ingredients[type] + 1;
     const newIngredients: { [key: string]: number } = {
       ...this.state.ingredients,
     };
     newIngredients[type] = newCount;
-    const priceAddition: number = INGREDIENT_PRICES[type];
-    const oldPrize: number = this.state.totalPrice;
-    const newPrice: number = oldPrize + priceAddition;
+    const newPrice: number = this.state.totalPrice + INGREDIENT_PRICES[type];
     this.setState({ totalPrice: newPrice, ingredients: newIngredients });
+    this.updatePurchaseState(newIngredients);
   };
 
   private removeIngredientHandler = (type: string) => {
     const ingredients: { [key: string]: number } = this.state.ingredients;
     const oldCount: number = ingredients[type];
-    if (oldCount <= 0) {
+    if (ingredients[type] <= 0) {
       return;
     }
     const newCount: number = oldCount - 1;
@@ -46,14 +53,15 @@ class BurgerBuilder extends React.Component {
       ...this.state.ingredients,
     };
     newIngredients[type] = newCount;
-    const priceDeduction: number = INGREDIENT_PRICES[type];
-    const oldPrize: number = this.state.totalPrice;
-    const newPrice: number = oldPrize - priceDeduction;
+    const newPrice: number = this.state.totalPrice - INGREDIENT_PRICES[type];
     this.setState({ totalPrice: newPrice, ingredients: newIngredients });
+    this.updatePurchaseState(newIngredients);
   };
 
   render() {
-    const ingredients: { [key: string]: number } = this.state.ingredients;
+    const ingredients: { [key: string]: number } = {
+      ...this.state.ingredients,
+    };
     let disableInfo: { [key: string]: boolean } = { meat: false };
 
     for (let key in ingredients) {
@@ -67,6 +75,7 @@ class BurgerBuilder extends React.Component {
           ingredientAdded={this.addIngredientHandler}
           ingredientRemoved={this.removeIngredientHandler}
           disabled={disableInfo}
+          purchasable={this.state.purchasable}
           price={this.state.totalPrice}
         />
       </Aux>

@@ -6,13 +6,14 @@ interface BuildControlProps {
   ingredientAdded: Function;
   ingredientRemoved: Function;
   disabled: { [key: string]: boolean };
+  purchasable: boolean;
   price: number;
 }
 
 interface Controls {
   label: string;
   type: string;
-};
+}
 
 const controls: Controls[] = [
   { label: "Salad", type: "salad" },
@@ -23,7 +24,9 @@ const controls: Controls[] = [
 
 const buildControls: React.FunctionComponent<BuildControlProps> = (props) => (
   <div className={styles.BuildControls}>
-    <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+    <p>
+      Current Price: <strong>{props.price.toFixed(2)}</strong>
+    </p>
     {controls.map((control) => (
       <BuildControl
         key={control.label}
@@ -33,6 +36,9 @@ const buildControls: React.FunctionComponent<BuildControlProps> = (props) => (
         disabled={props.disabled[control.type]}
       />
     ))}
+    <button className={styles.OrderButton} disabled={!props.purchasable}>
+      ORDER NOW
+    </button>
   </div>
 );
 
