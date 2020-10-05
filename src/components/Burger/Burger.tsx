@@ -1,5 +1,3 @@
-import { FunctionComponent } from "react";
-
 import React from "react";
 import styles from "./Burger.module.scss";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
@@ -8,7 +6,7 @@ interface BurgerProps {
   ingredients: { [key: string]: number };
 }
 
-const burger: FunctionComponent<BurgerProps> = (props) => {
+const burger: React.FunctionComponent<BurgerProps> = (props) => {
   let ingredientsJsx = Object.keys(props.ingredients)
     .map((ingKey: string) => {
       return [...Array(props.ingredients[ingKey])].map((_, i: number) => {
