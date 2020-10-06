@@ -7,6 +7,7 @@ interface BuildControlProps {
   ingredientRemoved: Function;
   disabled: { [key: string]: boolean };
   purchasable: boolean;
+  ordered: any;
   price: number;
 }
 
@@ -36,7 +37,11 @@ const buildControls: React.FunctionComponent<BuildControlProps> = (props) => (
         disabled={props.disabled[control.type]}
       />
     ))}
-    <button className={styles.OrderButton} disabled={!props.purchasable}>
+    <button
+      className={styles.OrderButton}
+      disabled={!props.purchasable}
+      onClick={props.ordered}
+    >
       ORDER NOW
     </button>
   </div>
