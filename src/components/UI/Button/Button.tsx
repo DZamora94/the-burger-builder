@@ -1,4 +1,3 @@
-import classes from "*.module.css";
 import React from "react";
 import styles from "./Button.module.scss";
 

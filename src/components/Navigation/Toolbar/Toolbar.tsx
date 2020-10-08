@@ -1,16 +1,21 @@
 import React from "react";
 import Logo from "../../Logo/Logo";
 import NavigationItems from "../NavigationItems/NavigationItems";
+import DrawerToggle from "../Sidedrawer/DrawerToggle/DrawerToggle";
 import styles from "./Toolbar.module.scss";
 
-const toolbar: React.FunctionComponent<{}> = (props) => (
+interface ToolbarProps {
+  drawerToggleClicked: Function;
+}
+
+const toolbar: React.FunctionComponent<ToolbarProps> = (props) => (
   <header className={styles.Toolbar}>
-    <div>MENU</div>
+    <DrawerToggle clicked={props.drawerToggleClicked} />
     <div className={styles.Logo}>
       <Logo />
     </div>
-    <nav>
-      <NavigationItems />
+    <nav className={styles.DesktopOnly}>
+      <NavigationItems></NavigationItems>
     </nav>
   </header>
 );

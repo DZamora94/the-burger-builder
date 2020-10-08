@@ -4,12 +4,37 @@ import Toolbar from "../Navigation/Toolbar/Toolbar";
 import Sidedrawer from "../Navigation/Sidedrawer/Sidedrawer";
 import styles from "./Layout.module.scss";
 
-const layout: React.FunctionComponent<{}> = (props) => (
-  <Aux>
-    <Toolbar />
-    <Sidedrawer />
-    <main className={styles.Content}>{props.children}</main>
-  </Aux>
-);
+interface LayoutState {
+  showSideDrawer: boolean;
+}
 
-export default layout;
+class Layout extends React.Component {
+  state: LayoutState = {
+    showSideDrawer: false,
+  };
+
+  sideDrawerCloseHandler = () => {
+    this.setState({ showSideDrawer: false });
+  };
+
+  sideDrawerToggleHandler = () => {
+    this.setState((prevState: LayoutState) => ({
+      showSideDrawer: !prevState.showSideDrawer,
+    }));
+  };
+
+  render() {
+    return (
+      <Aux>
+        <Toolbar drawerToggleClicked={this.sideDrawerToggleHandler} />
+        <Sidedrawer
+          open={this.state.showSideDrawer}
+          closed={this.sideDrawerCloseHandler}
+        />
+        <main className={styles.Content}>{this.props.children}</main>
+      </Aux>
+    );
+  }
+}
+
+export default Layout;
