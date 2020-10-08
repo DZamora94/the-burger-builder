@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React from "react";
 import Aux from "../../../hoc/Auxiliary";
 import Button from "../../UI/Button/Button";
 
@@ -9,7 +9,7 @@ interface OrderSummaryProps {
   totalPrice: number;
 }
 
-const orderSummary: FunctionComponent<OrderSummaryProps> = (props) => {
+const orderSummary: React.FunctionComponent<OrderSummaryProps> = (props) => {
   const ingredientSummary: JSX.Element[] = Object.keys(props.ingredients).map(
     (ingKey) => (
       <li key={ingKey}>

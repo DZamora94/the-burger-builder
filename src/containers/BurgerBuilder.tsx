@@ -12,7 +12,7 @@ const INGREDIENT_PRICES: { [key: string]: number } = {
   meat: 2,
 };
 
-class BurgerBuilder extends React.Component {
+class BurgerBuilder extends React.Component<{}> {
   state = {
     ingredients: {
       salad: 0,

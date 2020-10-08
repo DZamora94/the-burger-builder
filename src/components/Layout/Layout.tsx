@@ -8,7 +8,7 @@ interface LayoutState {
   showSideDrawer: boolean;
 }
 
-class Layout extends React.Component {
+class Layout extends React.Component<{}> {
   state: LayoutState = {
     showSideDrawer: false,
   };
